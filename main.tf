@@ -18,7 +18,6 @@ module "srecc-ec2-backend" {
   vpc_id           = "${module.srecc-vpc.vpc_id}"
   subnet_ids       = "${module.srecc-vpc.backend_subnet_ids}"
   target_group_arn = "${module.srecc-frontend.target_group_arn}"
-  tls_cert_arn     = "${var.tls_cert_arn}"
 }
 
 module "srecc-frontend" {
@@ -28,6 +27,7 @@ module "srecc-frontend" {
   subnet_ids             = "${module.srecc-vpc.frontend_subnet_ids}"
   autoscaling_group_name = "${module.srecc-ec2-backend.autoscaling_group_name}"
   backend_app_sg_id      = "${module.srecc-ec2-backend.backend_sg_id}"
+  tls_cert_arn           = "${var.tls_cert_arn}"
 }
 
 module "srecc-cloudflare-dns" {
